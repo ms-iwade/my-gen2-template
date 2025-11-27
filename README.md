@@ -1,6 +1,6 @@
-### amplify-gen2-template
+# amplify-gen2-template
 
-### セットアップ手順
+## セットアップ手順
 
 1. `package.json`内の`name`を任意のものに変更
 
