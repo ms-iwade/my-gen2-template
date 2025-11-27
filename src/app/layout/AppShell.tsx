@@ -19,6 +19,7 @@ import {
   Alert,
   Snackbar,
   Badge,
+  Tooltip,
   // BottomNavigation,
   // BottomNavigationAction,
   // Paper,
@@ -265,15 +266,27 @@ const AppShellContent = () => {
   const drawerContent = (
     <Box role="navigation" aria-label="メインナビゲーション">
       <Toolbar>
-        <IconButton
-          color="inherit"
-          onClick={handleToggleDrawer}
-          edge="start"
-          sx={{ mr: 1 }}
-          aria-label="メニューを閉じる"
+        <Tooltip
+          title="サイドバーを閉じる"
+          slotProps={{
+            tooltip: {
+              sx: {
+                backgroundColor: "Black",
+                color: "White",
+              },
+            },
+          }}
         >
-          <BorderLeftIcon />
-        </IconButton>
+          <IconButton
+            color="inherit"
+            onClick={handleToggleDrawer}
+            edge="start"
+            sx={{ mr: 1 }}
+            aria-label="メニューを閉じる"
+          >
+            <BorderLeftIcon />
+          </IconButton>
+        </Tooltip>
         <Link
           to="/"
           style={{
@@ -319,17 +332,29 @@ const AppShellContent = () => {
           }}
         >
           {!drawerOpen && (
-            <IconButton
-              color="inherit"
-              onClick={handleToggleDrawer}
-              edge="start"
-              sx={{ mr: 2 }}
-              aria-label="メニューを開く"
-              aria-expanded={false}
-              aria-controls="navigation-drawer"
+            <Tooltip
+              title="サイドバーを開く"
+              slotProps={{
+                tooltip: {
+                  sx: {
+                    backgroundColor: "Black",
+                    color: "White",
+                  },
+                },
+              }}
             >
-              <BorderRightIcon />
-            </IconButton>
+              <IconButton
+                color="inherit"
+                onClick={handleToggleDrawer}
+                edge="start"
+                sx={{ mr: 2 }}
+                aria-label="メニューを開く"
+                aria-expanded={false}
+                aria-controls="navigation-drawer"
+              >
+                <BorderRightIcon />
+              </IconButton>
+            </Tooltip>
           )}
           <Box
             sx={{
@@ -376,9 +401,32 @@ const AppShellContent = () => {
           {/* ユーザーメニュー */}
           {userInfo.isAuthenticated && (
             <Box>
-              <IconButton onClick={handleUserMenuOpen} color="inherit">
+              <Box
+                onClick={handleUserMenuOpen}
+                sx={{
+                  display: "flex",
+                  alignItems: "center",
+                  gap: 1,
+                  cursor: "pointer",
+                  borderRadius: 1,
+                  "&:hover": {
+                    backgroundColor: "action.hover",
+                  },
+                  px: 1,
+                  py: 0.5,
+                }}
+              >
                 <AccountCircleIcon />
-              </IconButton>
+                <Typography
+                  variant="body2"
+                  sx={{
+                    display: { xs: "none", sm: "block" },
+                    fontWeight: 500,
+                  }}
+                >
+                  {userInfo.username}
+                </Typography>
+              </Box>
               <Menu
                 anchorEl={userMenuAnchor}
                 open={Boolean(userMenuAnchor)}
@@ -387,16 +435,21 @@ const AppShellContent = () => {
                 anchorOrigin={{ horizontal: "right", vertical: "bottom" }}
               >
                 <MenuItem disabled>
-                  <Typography variant="body2" color="text.secondary">
-                    {userInfo.username}
-                  </Typography>
+                  <ListItemIcon>
+                    <AccountCircleIcon fontSize="small" />
+                  </ListItemIcon>
+                  <ListItemText primary={userInfo.username} />
                 </MenuItem>
                 <Divider />
                 <MenuItem onClick={handleLogout}>
                   <ListItemIcon>
-                    <LogoutIcon fontSize="small" />
+                    <LogoutIcon fontSize="small" sx={{ color: "error.main" }} />
                   </ListItemIcon>
-                  <ListItemText primary="ログアウト" />
+                  <ListItemText
+                    primary={
+                      <Typography color="error.main">ログアウト</Typography>
+                    }
+                  />
                 </MenuItem>
               </Menu>
             </Box>
@@ -467,7 +520,7 @@ const AppShellContent = () => {
                 ? `calc(100% - ${DRAWER_WIDTH}px)`
                 : "100%",
           },
-          // pb: bottomNavigationItems.length > 0 ? { xs: 10, md: 0 } : 0,
+          pb: 2,
         }}
       >
         <Toolbar />
