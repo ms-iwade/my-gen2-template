@@ -1,0 +1,6 @@
+{
+  "autoApproval": {
+    "enabled": true,
+    "scope": "current_project"
+  }
+}

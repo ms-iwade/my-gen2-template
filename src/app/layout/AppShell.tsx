@@ -20,9 +20,6 @@ import {
   Snackbar,
   Badge,
   Tooltip,
-  // BottomNavigation,
-  // BottomNavigationAction,
-  // Paper,
   Collapse,
 } from "@mui/material";
 import BorderLeftIcon from "@mui/icons-material/BorderLeft";
@@ -37,7 +34,6 @@ import { usePageHeader, PageHeaderProvider } from "@shared/page-header";
 import { APP_TITLE } from "@config/constants";
 import {
   getSidebarNavigationItems,
-  // getBottomNavigationItems,
   isNavigationItemActive,
   type NavigationItemType,
 } from "@config/navigationConfig";
@@ -56,7 +52,6 @@ const AppShellContent = () => {
     message: "",
     severity: "info" as "success" | "error" | "info",
   });
-  // const [bottomNavValue, setBottomNavValue] = useState(0);
   const [expandedMenus, setExpandedMenus] = useState<Record<string, boolean>>(
     {}
   );
@@ -66,22 +61,9 @@ const AppShellContent = () => {
   const { userInfo, logout, error: authError } = useAuth();
   const { pageHeader } = usePageHeader();
 
-  // ボトムナビゲーション用のアイテムを取得
-  // const bottomNavigationItems = getBottomNavigationItems();
-
   useEffect(() => {
     setDrawerOpen(!isMobile);
   }, [isMobile]);
-
-  // 現在のパスに基づいてボトムナビゲーションの選択状態を更新
-  // useEffect(() => {
-  //   const currentIndex = bottomNavigationItems.findIndex((item) =>
-  //     isNavigationItemActive(item, location.pathname)
-  //   );
-  //   if (currentIndex !== -1) {
-  //     setBottomNavValue(currentIndex);
-  //   }
-  // }, [location.pathname, bottomNavigationItems]);
 
   // 現在のパスに基づいて親メニューを自動展開
   useEffect(() => {
@@ -152,17 +134,6 @@ const AppShellContent = () => {
   const handleSnackbarClose = () => {
     setSnackbar({ ...snackbar, open: false });
   };
-
-  // const handleBottomNavigationChange = (
-  //   _: React.SyntheticEvent,
-  //   newValue: number
-  // ) => {
-  //   setBottomNavValue(newValue);
-  //   const selectedItem = bottomNavigationItems[newValue];
-  //   if (selectedItem && !selectedItem.disabled) {
-  //     navigate(selectedItem.path);
-  //   }
-  // };
 
   const handleToggleMenu = (itemId: string) => {
     setExpandedMenus((prev) => ({
@@ -526,51 +497,6 @@ const AppShellContent = () => {
         <Toolbar />
         <Outlet />
       </Box>
-
-      {/* ボトムナビゲーション */}
-      {/* {bottomNavigationItems.length > 0 && (
-        <Paper
-          sx={{
-            position: "fixed",
-            bottom: 0,
-            left: 0,
-            right: 0,
-            display: { xs: "block", md: "none" },
-            zIndex: (theme) => theme.zIndex.appBar,
-          }}
-          elevation={3}
-        >
-          <BottomNavigation
-            value={bottomNavValue}
-            onChange={handleBottomNavigationChange}
-            showLabels
-          >
-            {bottomNavigationItems.map((item) => {
-              const IconComponent = item.icon;
-              return (
-                <BottomNavigationAction
-                  key={item.id}
-                  label={item.label}
-                  disabled={item.disabled}
-                  icon={
-                    item.badge ? (
-                      <Badge
-                        badgeContent={item.badge.count}
-                        color={item.badge.color}
-                        aria-label={`${item.label} - ${item.badge.count}件の通知`}
-                      >
-                        <IconComponent />
-                      </Badge>
-                    ) : (
-                      <IconComponent />
-                    )
-                  }
-                />
-              );
-            })}
-          </BottomNavigation>
-        </Paper>
-      )} */}
 
       {/* スナックバー（通知） */}
       <Snackbar
