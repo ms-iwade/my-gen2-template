@@ -42,7 +42,7 @@ cfnUserPool.usernameAttributes = [];
 // パスワードポリシーの設定
 cfnUserPool.policies = {
   passwordPolicy: {
-    minimumLength: 5, // パスワードの最小文字数
+    minimumLength: 6, // パスワードの最小文字数
     requireLowercase: true, // 小文字
     requireNumbers: false, // 数字
     requireSymbols: false, // 記号
