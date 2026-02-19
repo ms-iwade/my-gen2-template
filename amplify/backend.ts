@@ -42,11 +42,11 @@ cfnUserPool.usernameAttributes = [];
 // パスワードポリシーの設定
 cfnUserPool.policies = {
   passwordPolicy: {
-    minimumLength: 6, // パスワードの最小文字数
+    minimumLength: 5, // パスワードの最小文字数
     requireLowercase: true, // 小文字
-    requireNumbers: true, // 数字
+    requireNumbers: false, // 数字
     requireSymbols: false, // 記号
     requireUppercase: false, // 大文字
-    temporaryPasswordValidityDays: 7, // 一時パスワードの有効期間
+    temporaryPasswordValidityDays: 30, // 一時パスワードの有効期間
   },
 };
